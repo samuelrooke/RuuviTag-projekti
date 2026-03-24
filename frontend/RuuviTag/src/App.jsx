@@ -61,7 +61,7 @@ function App() {
           <p>Join the Vite community</p>
           <ul>
             <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
+              <a href="https://github.com/samuelrooke/RuuviTag-projekti" target="_blank">
                 <svg
                   className="button-icon"
                   role="presentation"
@@ -85,7 +85,7 @@ function App() {
               </a>
             </li>
             <li>
-              <a href="https://x.com/vite_js" target="_blank">
+              <a href="https://www.youtube.com/watch?v=AUw0NMdmfFc" target="_blank">
                 <svg
                   className="button-icon"
                   role="presentation"
