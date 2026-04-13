@@ -1,35 +1,77 @@
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import os
 
-# --- SÄÄDÄ NÄMÄ ARVOT TESTIAJON PERUSTEELLA ---
-REKISTERÖITY_ALALAUDE = 45.0  # Mitä Ruuvi näytti
-TODELLINEN_YLALAUDE = 80.0    # Mitä seinämittari näytti samaan aikaan
-KERROIN = TODELLINEN_YLALAUDE / REKISTERÖITY_ALALAUDE
+def analyze_sauna_session(input_file):
+    if not os.path.exists(input_file):
+        print(f"Virhe: Tiedostoa '{input_file}' ei löydy.")
+        return
 
-def main():
-    # 1. Ladataan data
-    df = pd.read_csv('Sauna.csv')
+    df = pd.read_csv(input_file)
+    columns = ['Date', 'Temperature (°C)', 'Rel. humidity (%)', 'Abs. humidity (g/m³)']
+    df = df[columns].copy()
     df['Date'] = pd.to_datetime(df['Date'])
+    df = df.sort_values('Date').reset_index(drop=True)
 
-    # 2. Lasketaan ennuste ylälauteelle
-    # Kaava: Mitattu lämpö * kerroin + pieni löylylisä kosteudesta
-    df['Ennuste'] = df.apply(lambda r: round((r['Temperature (°C)'] * KERROIN) + (r['Rel. humidity (%)'] * 0.1), 1) 
-                             if r['Temperature (°C)'] > 25 else r['Temperature (°C)'], axis=1)
-
-    # 3. Otetaan tarkasteluun vain viimeisin saunomiskerta
-    viimeisin_sessio = df[df['Temperature (°C)'] > 30].tail(50) # Viimeiset 50 riviä kun sauna kuuma
-
-    # 4. Tehdään kuvaaja luokalle näytettäväksi
-    plt.figure(figsize=(10, 5))
-    plt.plot(viimeisin_sessio['Date'], viimeisin_sessio['Temperature (°C)'], label='Alalaude (Ruuvi)', color='blue')
-    plt.plot(viimeisin_sessio['Date'], viimeisin_sessio['Ennuste'], label='Ylälaude (Ennuste)', color='red', linestyle='--')
+    active_mask = df['Temperature (°C)'] > 28.0
+    if not active_mask.any():
+        print("Saunomissessiota ei löytynyt.")
+        return
     
-    plt.title('Saunaprojekti: Lämpötilaennuste')
-    plt.legend()
-    plt.savefig('saunakuva.png')
+    df_s = df.iloc[max(0, active_mask.idxmax()-15) : min(len(df), active_mask[::-1].idxmax()+45)].copy()
+
+    df_s['Abs_Change'] = df_s['Abs. humidity (g/m³)'].diff()
+    loyly_indices = []
+    last_time = None
     
-    print(f"Valmis! Korkein ennustettu lämpö: {viimeisin_sessio['Ennuste'].max()}°C")
-    print("Kuvaaja tallennettu: saunakuva.png")
+    for idx, row in df_s.iterrows():
+        if row['Abs_Change'] > 0.8 and row['Temperature (°C)'] > 55:
+            if last_time is None or (row['Date'] - last_time).total_seconds() > 180:
+                loyly_indices.append(idx)
+                last_time = row['Date']
+
+    df_loylyt = df_s.loc[loyly_indices]
+
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    fig.add_trace(go.Scatter(x=df_s['Date'], y=df_s['Temperature (°C)'], 
+                             name="Lämpötila (°C)", 
+                             line=dict(color='red', width=3)), 
+                  secondary_y=False)
+
+    fig.add_trace(go.Scatter(x=df_s['Date'], y=df_s['Abs. humidity (g/m³)'], 
+                             name="Abs. kosteus (g/m³)", 
+                             line=dict(color='blue', width=2, dash='dot')), 
+                  secondary_y=True)
+
+    fig.add_trace(go.Scatter(x=df_s['Date'], y=df_s['Rel. humidity (%)'], 
+                             name="Suht. kosteus (%)", 
+                             line=dict(color='rgba(0, 150, 255, 0.6)', width=2)), 
+                  secondary_y=True)
+
+    if not df_loylyt.empty:
+        fig.add_trace(go.Scatter(x=df_loylyt['Date'], y=df_loylyt['Abs. humidity (g/m³)'],
+                                 mode='markers+text', 
+                                 name=f'Löylyt ({len(df_loylyt)} kpl)',
+                                 text=[f"Löyly {i+1}" for i in range(len(df_loylyt))],
+                                 textposition="top center",
+                                 marker=dict(color='orange', size=14, symbol='star', 
+                                            line=dict(width=1, color='black'))), 
+                      secondary_y=True)
+
+    fig.update_layout(
+        title="Sauna-analyysi: yksi saunakerta, Lämpötila ja kosteussuhteet", 
+        template="plotly_white", 
+        hovermode="x unified",
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+    )
+
+    fig.update_yaxes(title_text="Lämpötila (°C)", secondary_y=False)
+    fig.update_yaxes(title_text="Kosteus ($g/m^3$ ja %)", secondary_y=True)
+    fig.update_xaxes(tickformat="%H:%M")
+    
+    fig.show()
 
 if __name__ == "__main__":
-    main()
+    analyze_sauna_session("sauna_full.csv")
