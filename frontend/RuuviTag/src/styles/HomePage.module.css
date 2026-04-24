@@ -1,0 +1,42 @@
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+  text-decoration: underline;
+}
+
+.project-section {
+  background: white;
+  padding: 25px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #e67e22;
+  transition: transform 0.2s ease;
+}
+
+h2 {
+  color: #2c3e50;
+  font-size: 27px;
+  margin-top: 0;
+  display: inline-block;
+  padding: 15px;
+}
+
+p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: white
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  margin: 10px 0;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
