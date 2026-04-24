@@ -20,5 +20,6 @@
 }
 
 .nav a:hover {
-  color: darkblue;
+  color: #ff8c00;
+  /* Oranssi korostus hiirellä */
 }

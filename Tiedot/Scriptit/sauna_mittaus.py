@@ -71,7 +71,7 @@ def analyze_sauna_session(input_file):
     fig.update_yaxes(title_text="Kosteus ($g/m^3$ ja %)", secondary_y=True)
     fig.update_xaxes(tickformat="%H:%M")
     
-    fig.show()
+    fig.write_html('sauna.html')
 
 if __name__ == "__main__":
     analyze_sauna_session("sauna_full.csv")
