@@ -43,7 +43,7 @@ function Results() {
           havainnollistaen kuinka pitkään saunan rakenteet varaavat lämpöä varsinaisen saunomisen päätyttyä.
         </p>
         <div className={styles.repocode}>
-          <a href="https://github.com/samuelrooke/RuuviTag-projekti"
+          <a href="https://github.com/samuelrooke/RuuviTag-projekti/blob/main/Tiedot/Scriptit/kaaviot.py"
             target="_blank"
             rel="noopener noreferrer"
             className="github-link">
@@ -55,12 +55,25 @@ function Results() {
       <div>
         <h2>Tähän joku uusikaaavio:</h2>
         <iframe
-          src="/saunomiskerta.html"
+          src="/sauna_per_month.html"
           style={{ width: '80%', height: '500px', border: 'none' }}
           title="Saunadata"
         />
         <p className={styles.para}>
+          Tämä kaavio näyttää saunotut tunnit kuukausittain noin vuoden ajanjaksolta. Pylväistä nähdään selvästi,
+          että saunominen on ollut aktiivisinta toukokuussa, jolloin tunteja on kertynyt yli 30. Myös loppuvuodesta ja talvikuukausina
+          sauna on lämmennyt ahkerasti, kun taas maalis-huhtikuussa ja keskikesällä heinäkuussa saunatunteja on kertynyt selvästi vähemmän.
+          Kaavio antaa hyvän yleiskuvan siitä, miten saunominen painottuu eri vuodenaikoihin.
         </p>
+
+        <div className={styles.repocode}>
+          <a href="https://github.com/samuelrooke/RuuviTag-projekti/blob/main/Tiedot/Scriptit/kaaviot.py"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="github-link">
+            Tutustu kaavion koodiin GitHubissa!
+          </a>
+        </div>
       </div>
 
       <div>
@@ -78,7 +91,7 @@ function Results() {
           saunomisolosuhteisiin ja siihen, kuinka nopeasti tila jäähtyy ja kuivuu.
         </p>
         <div className={styles.repocode}>
-          <a href="https://github.com/samuelrooke/RuuviTag-projekti"
+          <a href="https://github.com/samuelrooke/RuuviTag-projekti/blob/main/Tiedot/Scriptit/kaaviot.py"
             target="_blank"
             rel="noopener noreferrer"
             className="github-link">
