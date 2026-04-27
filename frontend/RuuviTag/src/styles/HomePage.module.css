@@ -36,6 +36,10 @@ h1 {
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+.repo {
+  padding: 25px;
+}
+
 h2 {
   color: #394958;
   font-size: 27px;
