@@ -112,6 +112,7 @@ fig2.update_layout(
     )
 )
 
+fig2.write_html("saunomiskerta.html")
 fig2.show()
 
 # Kaavio 3: kesä ja talvi samassa aikasarjassa
@@ -181,4 +182,5 @@ fig3.update_layout(
     legend=dict(x=0.01, y=0.99)
 )
 
+fig3.write_html("kesa_talvi.html")
 fig3.show()
