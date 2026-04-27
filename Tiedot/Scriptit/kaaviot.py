@@ -42,38 +42,42 @@ average_heating = sum(heating_times) / len(heating_times)
 average_cooling = sum(cooling_times) / len(cooling_times)
 average_humidity = sum(humidity_averages) / len(humidity_averages)
 
-# Kaavio 1: saunan toiminta
+# Kaavio 1: saunan lämpeneminen (sauna2.csv)
+sauna2 = pd.read_csv("sauna2.csv")
+sauna2["Date"] = pd.to_datetime(sauna2["Date"])
+sauna2 = sauna2.sort_values("Date")
+
+session_start_s2 = sauna2[sauna2["Temperature (°C)"] > 25].iloc[0]["Date"]
+sauna2["minutes"] = (sauna2["Date"] - session_start_s2).dt.total_seconds() / 60
+sauna2 = sauna2[sauna2["minutes"] >= 0]
+
+peak_idx = sauna2["Temperature (°C)"].idxmax()
+peak_temp = sauna2.loc[peak_idx, "Temperature (°C)"]
+peak_min = sauna2.loc[peak_idx, "minutes"]
+
 fig1 = go.Figure()
 
-fig1.add_trace(
-    go.Bar(
-        x=["Lämpeneminen", "Jäähtyminen"],
-        y=[average_heating, average_cooling],
-        name="Aika (h)",
-        yaxis="y"
-    )
-)
+fig1.add_trace(go.Scatter(
+    x=sauna2["minutes"],
+    y=sauna2["Temperature (°C)"],
+    name="Lämpötila (°C)",
+    line=dict(color="tomato", width=2),
+    hovertemplate="%{x:.0f} min<br>%{y:.1f} °C<extra></extra>"
+))
 
-fig1.add_trace(
-    go.Bar(
-        x=["Kosteus"],
-        y=[average_humidity],
-        name="Kosteus (%)",
-        yaxis="y2"
-    )
+fig1.add_annotation(
+    x=peak_min, y=peak_temp,
+    text=f"Huippu: {peak_temp:.1f} °C<br>{peak_min:.0f} min",
+    showarrow=True, arrowhead=2, ay=-40
 )
 
 fig1.update_layout(
-    title="Saunan lämpeneminen, jäähtyminen ja keskimääräinen kosteus",
-    xaxis=dict(title="Mittari"),
-    yaxis=dict(title="Aika (h)"),
-    yaxis2=dict(
-        title="Kosteus (%)",
-        overlaying="y",
-        side="right"
-    )
+    title="Saunan lämpeneminen, kuinka kauan kuumeneminen kestää",
+    autosize=True,
+    xaxis=dict(title="Minuuttia istunnon alusta"),
+    yaxis=dict(title="Lämpötila (°C)")
 )
-fig1.write_html("sauna6342.html")
+fig1.write_html("sauna6342.html", config={"responsive": True})
 fig1.show()
 
 # Kaavio 2: yksi saunomiskerta
