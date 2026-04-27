@@ -22,13 +22,17 @@ function Results() {
       </div>
 
       <div>
-        <h2>Tähän joku uusikaaavio:</h2>
+        <h2>Saunan lämpenemisen ja viilentymisen nopeus:</h2>
         <iframe
           src="/sauna6342.html"
           style={{ width: '80%', height: '500px', border: 'none' }}
           title="Saunadata"
         />
         <p className={styles.para}>
+          Tämä kaavio näyttää saunan lämpenemiseen ja jäähtymiseen kuluvan ajan minuutteina.
+          Kuvaajasta nähdään, että saunan lämpötila nousee huippuunsa (72,9 °C) noin 142 minuutin eli reilun kahden
+          tunnin kohdalla lämmityksen aloituksesta. Tämän jälkeen alkaa hidas viilentymisvaihe, joka kestää satoja minuutteja,
+          havainnollistaen kuinka pitkään saunan rakenteet varaavat lämpöä varsinaisen saunomisen päätyttyä.
         </p>
       </div>
 
@@ -51,7 +55,7 @@ function Results() {
           title="kesätalvisauna"
         />
         <p className={styles.para}>
-          Tämä Plotlylla tehty kaavio vertailee saunan lämpötiloja ja kosteutta kesän ja talven välillä lähes vuoden ajanjaksolla.
+          Tämä kaavio vertailee saunan lämpötiloja ja kosteutta kesän ja talven välillä lähes vuoden ajanjaksolla.
           Kuvasta näkyy selvästi, miten kesällä (vihreä ja sininen) saunan peruslämpötila ja ilmankosteus pysyvät korkeammalla ja tasaisempana,
           kun taas talvikuukausina (punainen ja liila) mennään kovemmilla vaihteluilla: lämpötilapiikit ovat terävämpiä ja ilma kuivuu huomattavasti
           nopeammin saunomisen välissä. Kaavio havainnollistaa hyvin, kuinka ulkoilman vuodenaika vaikuttaa suoraan
