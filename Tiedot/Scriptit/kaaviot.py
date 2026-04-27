@@ -73,7 +73,7 @@ fig1.update_layout(
         side="right"
     )
 )
-
+fig1.write_html("sauna6342.html")
 fig1.show()
 
 # Kaavio 2: yksi saunomiskerta
