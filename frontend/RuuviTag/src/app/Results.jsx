@@ -53,7 +53,7 @@ function Results() {
       </div>
 
       <div>
-        <h2>Tähän joku uusikaaavio:</h2>
+        <h2>Saunatunnit kuukausittain:</h2>
         <iframe
           src="/sauna_per_month.html"
           style={{ width: '80%', height: '500px', border: 'none' }}
@@ -77,7 +77,7 @@ function Results() {
       </div>
 
       <div>
-        <h2>Kaavio yhdestä saunakerrasta:</h2>
+        <h2>Vuoden saunakäynnit:</h2>
         <iframe
           src="/kesa_talvi.html"
           style={{ width: '80%', height: '500px', border: 'none' }}
