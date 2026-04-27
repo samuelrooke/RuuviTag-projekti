@@ -19,6 +19,14 @@ function Results() {
           Kaaviosta näkee hyvin, miten ilma kostuu välittömästi löylyä heittäessä ja miten sauna pysyy
           vielä seuraavana aamunakin selvästi huoneenlämpöä lämpimämpänä.
         </p>
+        <div className={styles.repocode}>
+          <a href="https://github.com/samuelrooke/RuuviTag-projekti/blob/main/Tiedot/Scriptit/sauna_mittaus.py"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="github-link">
+            Tutustu kaavion koodiin GitHubissa!
+          </a>
+        </div>
       </div>
 
       <div>
@@ -34,6 +42,14 @@ function Results() {
           tunnin kohdalla lämmityksen aloituksesta. Tämän jälkeen alkaa hidas viilentymisvaihe, joka kestää satoja minuutteja,
           havainnollistaen kuinka pitkään saunan rakenteet varaavat lämpöä varsinaisen saunomisen päätyttyä.
         </p>
+        <div className={styles.repocode}>
+          <a href="https://github.com/samuelrooke/RuuviTag-projekti"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="github-link">
+            Tutustu kaavion koodiin GitHubissa!
+          </a>
+        </div>
       </div>
 
       <div>
@@ -61,6 +77,14 @@ function Results() {
           nopeammin saunomisen välissä. Kaavio havainnollistaa hyvin, kuinka ulkoilman vuodenaika vaikuttaa suoraan
           saunomisolosuhteisiin ja siihen, kuinka nopeasti tila jäähtyy ja kuivuu.
         </p>
+        <div className={styles.repocode}>
+          <a href="https://github.com/samuelrooke/RuuviTag-projekti"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="github-link">
+            Tutustu kaavion koodiin GitHubissa:
+          </a>
+        </div>
       </div>
     </div>
   );
