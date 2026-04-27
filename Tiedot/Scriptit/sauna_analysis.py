@@ -19,8 +19,8 @@ from datetime import datetime
 import os
 
 # Configuration
-CSV_FILE = "/home/lab/projects/rouvi/Sauna.csv"
-OUTPUT_DIR = "/home/lab/projects/rouvi/output"
+CSV_FILE = "Sauna.csv"
+OUTPUT_DIR = "."
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "saunastats.png")
 
 # Temperature thresholds for cycle detection

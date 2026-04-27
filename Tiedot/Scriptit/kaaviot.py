@@ -188,3 +188,48 @@ fig3.update_layout(
 
 fig3.write_html("kesa_talvi.html")
 fig3.show()
+
+# Kaavio 4: saunatunnit kuukausittain
+import calendar
+
+data["above30"] = (data["Temperature (°C)"] > 30).astype(int)
+data["session_id"] = (data["above30"].diff().fillna(0) != 0).cumsum()
+
+monthly_hours = {}
+for _, group in data[data["above30"] == 1].groupby("session_id"):
+    duration_h = (group["Date"].max() - group["Date"].min()).total_seconds() / 3600
+    if duration_h < 0.25:
+        continue
+    month = group["Date"].iloc[0].month
+    monthly_hours[month] = monthly_hours.get(month, 0) + duration_h
+
+months_sorted = sorted(monthly_hours.keys())
+month_names = [calendar.month_abbr[m] for m in months_sorted]
+hours_values = [monthly_hours[m] for m in months_sorted]
+
+fig4 = go.Figure()
+season_colors = {
+    12: "#4fc3f7", 1: "#0288d1", 2: "#81d4fa",   # talvi - sininen
+    3: "#a5d6a7", 4: "#66bb6a", 5: "#2e7d32",     # kevät - vihreä
+    6: "#fff176", 7: "#ffd600", 8: "#ffb300",     # kesä - keltainen
+    9: "#ffb74d", 10: "#e64a19", 11: "#795548",   # syksy - oranssi/ruskea
+}
+
+bar_colors = [season_colors[m] for m in months_sorted]
+
+fig4.add_trace(go.Bar(
+    x=month_names,
+    y=hours_values,
+    marker_color=bar_colors,
+    hovertemplate="%{x}<br>%{y:.1f} h<extra></extra>"
+))
+fig4.update_layout(
+    title=dict(
+        text="Saunatunnit kuukausittain<br><sup>Data: 1.4.2025 – 3.3.2026</sup>",
+    ),
+    autosize=True,
+    xaxis=dict(title="Kuukausi"),
+    yaxis=dict(title="Tunnit (h)", rangemode="tozero")
+)
+fig4.write_html("sauna_per_month.html", config={"responsive": True})
+fig4.show()
