@@ -8,7 +8,7 @@ function Results() {
       <div>
         <h2>Kaavio yhdestä saunakerrasta:</h2>
         <iframe
-          src="/sauna.html"
+          src={`${import.meta.env.BASE_URL}sauna.html`}
           style={{ width: '80%', height: '500px', border: 'none' }}
           title="Saunadata"
         />
@@ -32,7 +32,7 @@ function Results() {
       <div>
         <h2>Saunan lämpenemisen ja viilentymisen nopeus:</h2>
         <iframe
-          src="/sauna6342.html"
+          src={`${import.meta.env.BASE_URL}sauna6342.html`}
           style={{ width: '80%', height: '500px', border: 'none' }}
           title="Saunadata"
         />
@@ -55,7 +55,7 @@ function Results() {
       <div>
         <h2>Saunatunnit kuukausittain:</h2>
         <iframe
-          src="/sauna_per_month.html"
+          src={`${import.meta.env.BASE_URL}sauna_per_month.html`}
           style={{ width: '80%', height: '500px', border: 'none' }}
           title="Saunadata"
         />
@@ -79,7 +79,7 @@ function Results() {
       <div>
         <h2>Vuoden saunakäynnit:</h2>
         <iframe
-          src="/kesa_talvi.html"
+          src={`${import.meta.env.BASE_URL}kesa_talvi.html`}
           style={{ width: '80%', height: '500px', border: 'none' }}
           title="kesätalvisauna"
         />
